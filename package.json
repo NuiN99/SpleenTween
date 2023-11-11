@@ -4,7 +4,6 @@
     "displayName": "SpleenTween",
     "description": "Tweening Library for Unity",
     "unity": "2019.1",
-    "type": "asset",
     "repository": "https://github.com/NuiN99/SpleenTween-Package.git",
     "author": {
         "name": "NuiN",
