@@ -1,8 +1,8 @@
-using System;
-using UnityEngine;
-
 namespace SpleenTween 
 {
+    using System;
+    using UnityEngine;
+    
     public interface Tween
     {
         /// <summary>

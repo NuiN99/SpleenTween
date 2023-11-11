@@ -1,7 +1,7 @@
-using SpleenTween.Extensions;
-
 namespace SpleenTween
 {
+    using SpleenTween.Extensions;
+    
     public enum Loop
     {
         None = 0,

@@ -1,9 +1,9 @@
-using System;
-using SpleenTween.Extensions;
-using UnityEngine;
-
 namespace SpleenTween
 {
+    using System;
+    using SpleenTween.Extensions;
+    using UnityEngine;
+    
     /// <summary>
     /// Call the functions in this to start a tween
     /// </summary>

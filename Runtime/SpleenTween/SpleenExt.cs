@@ -1,8 +1,8 @@
-using System;
-using UnityEngine;
-
 namespace SpleenTween.Extensions
 {
+    using System;
+    using UnityEngine;
+    
     public enum Axis { x, y, z };
 
     /// <summary>

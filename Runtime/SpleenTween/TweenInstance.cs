@@ -1,9 +1,9 @@
-using System;
-using SpleenTween.Extensions;
-using UnityEngine;
-
 namespace SpleenTween
 {
+    using System;
+    using SpleenTween.Extensions;
+    using UnityEngine;
+    
     public class TweenInstance<T> : Tween
     {
         T _currentValue;

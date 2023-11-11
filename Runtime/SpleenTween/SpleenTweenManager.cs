@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-
 namespace SpleenTween
 {
+    using System.Collections.Generic;
+    using UnityEngine;
+    using UnityEngine.SceneManagement;
+    
     /// <summary>
     /// Spawned on load and persists through the game. Contains and runs all active tweens
     /// </summary>
