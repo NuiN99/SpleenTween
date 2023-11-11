@@ -1,0 +1,13 @@
+{
+    "name": "com.nuin.spleentween",
+    "version": "1.0.0",
+    "displayName": "SpleenTween",
+    "description": "Tweening Library for Unity",
+    "unity": "2019.1",
+    "repository": "https://github.com/NuiN99/SpleenTween-Package.git",
+    "author": {
+        "name": "NuiN",
+        "email": "endyverse@gmail.com",
+        "url": ""
+    }
+}
