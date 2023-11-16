@@ -215,6 +215,12 @@ namespace SpleenTween
             return this;
         }
 
+        Tween Tween.Stop()
+        {
+            Spleen.StopTween(this);
+            return this;
+        }
+        
         Tween Tween.StopIfNull(GameObject target)
         {
             _nullCheck += () => target == null;

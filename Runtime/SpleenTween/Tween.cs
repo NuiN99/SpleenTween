@@ -21,6 +21,7 @@ namespace SpleenTween
         Tween OnComplete(Action onComplete);
         Tween SetLoop(Loop loopType, int cycles = -1);
         Tween SetDelay(float delay, bool startDelay = true);
+        Tween Stop();
         Tween StopIfNull(GameObject target);
         Tween StopIf(Func<bool> stopCondition, bool invokeComplete = false);
 
