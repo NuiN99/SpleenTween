@@ -63,6 +63,8 @@ namespace SpleenTween
 
         public static Tween DoAfter(float seconds, Action onComplete) =>
             CreateTween(0f, seconds, seconds, Ease.Linear, null).OnComplete(onComplete);
+        public static Tween DoFor(float seconds, Action onUpdate) =>
+            CreateTween(0f, seconds, seconds, Ease.Linear, (_) => onUpdate?.Invoke());
         public static Tween DoWhen(Func<bool> condition, Action doWhen, float timeOutAfterSeconds = float.MaxValue) =>
             CreateTween(0f, 1f, timeOutAfterSeconds, Ease.Linear, null).StopIf(condition, true).OnComplete(doWhen);
         public static Tween DoUntil(Func<bool> condition, Action doUntil, float timeOutAfterSeconds = float.MaxValue) =>
