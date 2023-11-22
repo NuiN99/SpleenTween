@@ -1,3 +1,5 @@
+using UnityEngine.UI;
+
 namespace SpleenTween
 {
     using System;
@@ -179,6 +181,14 @@ namespace SpleenTween
             CreateTargetTween(target, target.gameObject, from, to, duration, easing, 
                 val => target.color = new Color(target.color.r, target.color.g, target.color.b, val));
         public static Tween SRAlpha(SpriteRenderer target, float to, float duration, Ease easing) =>
+            CreateTargetTween(target, target.gameObject, target.color.a, to, duration, easing, 
+                val => target.color = new Color(target.color.r, target.color.g, target.color.b, val));
+        
+        
+        public static Tween ImageAlpha(Image target, float from, float to, float duration, Ease easing) =>
+            CreateTargetTween(target, target.gameObject, from, to, duration, easing, 
+                val => target.color = new Color(target.color.r, target.color.g, target.color.b, val));
+        public static Tween ImageAlpha(Image target, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, target.color.a, to, duration, easing, 
                 val => target.color = new Color(target.color.r, target.color.g, target.color.b, val));
 
