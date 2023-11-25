@@ -94,6 +94,12 @@ Spleen.DoWhen(Func<bool> condition, Action doWhenConditionMet);
 Spleen.DoUntil(Func<bool> condition, Action doUntilConditionMet)
 
 
+Spleen.StopTween(Tween tween);
+
+Spleen.StopAllTweens(); // stop EVERY tween
+
+Spleen.StopAllTweens(GameObject target); // stop every tween that is targeting a specific GameObject
+
 ## Tweens have information:
 
 ### Example:
