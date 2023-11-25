@@ -1,4 +1,4 @@
-# A Tweening Library for Unity
+# SpleenTween - Tweening Library for Unity
 
 # How To Use:
 
