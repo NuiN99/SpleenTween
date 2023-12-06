@@ -191,6 +191,13 @@ namespace SpleenTween
         public static Tween ImageAlpha(Image target, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, target.color.a, to, duration, easing, 
                 val => target.color = new Color(target.color.r, target.color.g, target.color.b, val));
+        
+        public static Tween RawImageAlpha(RawImage target, float from, float to, float duration, Ease easing) =>
+                    CreateTargetTween(target, target.gameObject, from, to, duration, easing, 
+                        val => target.color = new Color(target.color.r, target.color.g, target.color.b, val));
+        public static Tween RawImageAlpha(RawImage target, float to, float duration, Ease easing) =>
+            CreateTargetTween(target, target.gameObject, target.color.a, to, duration, easing, 
+                val => target.color = new Color(target.color.r, target.color.g, target.color.b, val));
 
 
         public static Tween CamFOV(Camera target, float from, float to, float duration, Ease easing) =>
