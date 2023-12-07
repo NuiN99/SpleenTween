@@ -105,12 +105,9 @@ namespace SpleenTween
 
             if (!Active)
             {
-                RestartLoop();
-
                 EasedLerpProgress = Direction; // set final value for precision
-
+                RestartLoop();
                 UpdateValue();
-
                 InvokeOnComplete();
                 return;
             }
