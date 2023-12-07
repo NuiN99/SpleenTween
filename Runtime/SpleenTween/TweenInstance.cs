@@ -109,6 +109,9 @@ namespace SpleenTween
                 RestartLoop();
 
                 EasedLerpProgress = Direction; // set final value for precision
+
+                UpdateValue();
+                return;
             }
 
             UpdateValue();
