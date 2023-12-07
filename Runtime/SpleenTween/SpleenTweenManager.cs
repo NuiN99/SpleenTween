@@ -48,6 +48,7 @@ namespace SpleenTween
                 tween.Run();
                 if (tween.Complete())
                 {
+                    if(i >= _activeTweens.Count) continue;
                     _activeTweens.RemoveAt(i);
                 }
             }
