@@ -1,5 +1,4 @@
 using UnityEngine.UI;
-using TMPro;
 
 namespace SpleenTween
 {
@@ -185,14 +184,6 @@ namespace SpleenTween
             CreateTargetTween(target, target.gameObject, target.color.a, to, duration, easing, 
                 val => target.color = new Color(target.color.r, target.color.g, target.color.b, val));
         
-        
-        public static Tween TextColor(TMP_Text target, Color from, Color to, float duration, Ease easing) =>
-            CreateTargetTween(target, target.gameObject, from, to, duration, easing, val => target.color = val);
-        public static Tween TextColor(TMP_Text target, Color to, float duration, Ease easing) =>
-            CreateTargetTween(target, target.gameObject, target.color, to, duration, easing, val => target.color = val);
-        public static Tween AddTextColor(TMP_Text target, Color increment, float duration, Ease easing) =>
-            CreateRelativeTargetTween(target, target.gameObject, increment, duration, easing, () => target.color, (val, from) =>
-                target.color += val - from);
         
         public static Tween ImageAlpha(Image target, float from, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, from, to, duration, easing, 
