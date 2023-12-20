@@ -16,6 +16,11 @@ namespace SpleenTween
         public static void StopAllTweens() => SpleenTweenManager.Instance.RemoveAllTweens();
         public static void StopAllTweens(GameObject target) => SpleenTweenManager.Instance.RemoveAllTweensWithIdentifier(target);
 
+        public static IEnumerator WaitForTween(Tween tween)
+        {
+            yield return new WaitForSeconds(tween.Duration + tween.Delay);
+        }
+
         static Tween CreateTween<T>(T from, T to, float duration, Ease easing, Action<T> onUpdate)
         {
             Tween tween = new TweenInstance<T>(from, to, duration, easing, onUpdate);
