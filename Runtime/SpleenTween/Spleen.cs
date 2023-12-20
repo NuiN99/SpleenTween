@@ -185,6 +185,14 @@ namespace SpleenTween
                 val => target.color = new Color(target.color.r, target.color.g, target.color.b, val));
         
         
+        public static Tween ImageFill(Image target, float from, float to, float duration, Ease easing) =>
+            CreateTargetTween(target, target.gameObject, from, to, duration, easing, 
+                val => target.fillAmount = val);
+        public static Tween ImageFill(SpriteRenderer target, float to, float duration, Ease easing) =>
+            CreateTargetTween(target, target.gameObject, target.fillAmount, to, duration, easing, 
+                val => target.fillAmount = val);
+        
+        
         public static Tween ImageAlpha(Image target, float from, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, from, to, duration, easing, 
                 val => target.color = new Color(target.color.r, target.color.g, target.color.b, val));
