@@ -20,7 +20,7 @@ namespace SpleenTween
         /// <summary>
         /// Spawns a new instance when the game loads for the first time
         /// </summary>
-        [RuntimeInitializeOnLoadMethod]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void Initialize() => new GameObject("SpleenTweenManager").AddComponent<SpleenTweenManager>();
 
         void Awake()
