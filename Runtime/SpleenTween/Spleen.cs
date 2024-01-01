@@ -66,6 +66,10 @@ namespace SpleenTween
         #region Create Tweens
         public static Tween Value(float from, float to, float duration, Ease easing, Action<float> onUpdate) => 
             CreateTween(from, to, duration, easing, onUpdate);
+        public static Tween Value0To1(float duration, Ease easing, Action<float> onUpdate) => 
+            CreateTween(0, 1, duration, easing, onUpdate);
+        public static Tween Value1To0(float duration, Ease easing, Action<float> onUpdate) => 
+            CreateTween(1, 0, duration, easing, onUpdate);
         public static Tween Value3(Vector3 from, Vector3 to, float duration, Ease easing, Action<Vector3> onUpdate) => 
             CreateTween(from, to, duration, easing, onUpdate);
 
