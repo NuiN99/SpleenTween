@@ -88,15 +88,15 @@ namespace SpleenTween
         public static Tween Pos(Transform target, Vector3 to, float duration, Ease easing) => 
             CreateTargetTween(target, target.gameObject, target.transform.position, to, duration, easing, val => target.position = val);
         
-        public static Tween PosAxis(Transform target, Axis axis, float from, float to, float duration, Ease easing) =>
+        public static Tween PosAxis(Transform target, SpleenAxis axis, float from, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, from, to, duration, easing, val => SpleenExt.SetPosAxis(axis, target, val));
-        public static Tween PosAxis(Transform target, Axis axis, float to, float duration, Ease easing) =>
+        public static Tween PosAxis(Transform target, SpleenAxis axis, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, 
                 SpleenExt.GetAxis(axis, target.position), to, duration, easing, val => SpleenExt.SetPosAxis(axis, target, val));
         
         public static Tween AddPos(Transform target, Vector3 increment, float duration, Ease easing) =>
             CreateRelativeTargetTween(target, target.gameObject, increment, duration, easing, () => target.position, (val, from) => target.position += val - from);
-        public static Tween AddPosAxis(Transform target, Axis axis, float increment, float duration, Ease easing) =>
+        public static Tween AddPosAxis(Transform target, SpleenAxis axis, float increment, float duration, Ease easing) =>
             CreateRelativeTargetTween(target, target.gameObject, increment, duration, easing, 
                 () => SpleenExt.GetAxis(axis, target.position), (val, from) => SpleenExt.AddPosAxis(axis, target, val - from));
         
@@ -106,16 +106,16 @@ namespace SpleenTween
         public static Tween LocalPos(Transform target, Vector3 to, float duration, Ease easing) => 
             CreateTargetTween(target, target.gameObject, target.transform.localPosition, to, duration, easing, val => target.localPosition = val);
         
-        public static Tween LocalPosAxis(Transform target, Axis axis, float from, float to, float duration, Ease easing) =>
+        public static Tween LocalPosAxis(Transform target, SpleenAxis axis, float from, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, from, to, duration, easing, 
                 val => SpleenExt.SetLocalPosAxis(axis, target, val));
-        public static Tween LocalPosAxis(Transform target, Axis axis, float to, float duration, Ease easing) =>
+        public static Tween LocalPosAxis(Transform target, SpleenAxis axis, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, 
                 SpleenExt.GetAxis(axis, target.localPosition), to, duration, easing, val => SpleenExt.SetLocalPosAxis(axis, target, val));
         
         public static Tween AddLocalPos(Transform target, Vector3 increment, float duration, Ease easing) =>
             CreateRelativeTargetTween(target, target.gameObject, increment, duration, easing, () => target.localPosition, (val, from) => target.localPosition += val - from);
-        public static Tween AddLocalPosAxis(Transform target, Axis axis, float increment, float duration, Ease easing) =>
+        public static Tween AddLocalPosAxis(Transform target, SpleenAxis axis, float increment, float duration, Ease easing) =>
             CreateRelativeTargetTween(target, target.gameObject, increment, duration, easing, 
                 () => SpleenExt.GetAxis(axis, target.localPosition), (val, from) => SpleenExt.AddLocalPosAxis(axis, target, val - from));
         
@@ -125,9 +125,9 @@ namespace SpleenTween
         public static Tween RBPos(Rigidbody target, Vector3 to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, target.position, to, duration, easing, target.MovePosition);
         
-        public static Tween RBPosAxis(Rigidbody target, Axis axis, float from, float to, float duration, Ease easing) =>
+        public static Tween RBPosAxis(Rigidbody target, SpleenAxis axis, float from, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, from, to, duration, easing, val => SpleenExt.SetRBPosAxis(axis, target, val));
-        public static Tween RBPosAxis(Rigidbody target, Axis axis, float to, float duration, Ease easing) =>
+        public static Tween RBPosAxis(Rigidbody target, SpleenAxis axis, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, 
                 SpleenExt.GetAxis(axis, target.position), to, duration, easing, val => SpleenExt.SetRBPosAxis(axis, target, val));
         
@@ -137,9 +137,9 @@ namespace SpleenTween
         public static Tween RB2DPos(Rigidbody2D target, Vector2 to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, target.position, to, duration, easing, target.MovePosition);
         
-        public static Tween RB2DPosAxis(Rigidbody2D target, Axis axis, float from, float to, float duration, Ease easing) =>
+        public static Tween RB2DPosAxis(Rigidbody2D target, SpleenAxis axis, float from, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, from, to, duration, easing, val => SpleenExt.SetRB2DPosAxis(axis, target, val));
-        public static Tween RB2DPosAxis(Rigidbody2D target, Axis axis, float to, float duration, Ease easing) =>
+        public static Tween RB2DPosAxis(Rigidbody2D target, SpleenAxis axis, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, 
                 SpleenExt.GetAxis(axis, target.position), to, duration, easing, val => SpleenExt.SetRB2DPosAxis(axis, target, val));
 
@@ -149,16 +149,16 @@ namespace SpleenTween
         public static Tween Scale(Transform target, Vector3 to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, target.localScale, to, duration, easing, val => target.localScale = val);
         
-        public static Tween ScaleAxis(Transform target, Axis axis, float from, float to, float duration, Ease easing) =>
+        public static Tween ScaleAxis(Transform target, SpleenAxis axis, float from, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, from, to, duration, easing, val => SpleenExt.SetScaleAxis(axis, target, val));
-        public static Tween ScaleAxis(Transform target, Axis axis, float to, float duration, Ease easing) =>
+        public static Tween ScaleAxis(Transform target, SpleenAxis axis, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, 
                 SpleenExt.GetAxis(axis, target.localScale), to, duration, easing, val => SpleenExt.SetScaleAxis(axis, target, val));
 
         public static Tween AddScale(Transform target, Vector3 increment, float duration, Ease easing) =>
             CreateRelativeTargetTween(target, target.gameObject, increment, duration, easing, () => target.localScale, (val, from) => 
             target.localScale += val - from);
-        public static Tween AddScaleAxis(Transform target, Axis axis, float increment, float duration, Ease easing) =>
+        public static Tween AddScaleAxis(Transform target, SpleenAxis axis, float increment, float duration, Ease easing) =>
             CreateRelativeTargetTween(target, target.gameObject, increment, duration, easing, 
                 () => SpleenExt.GetAxis(axis, target.localScale), (val, from) => SpleenExt.AddScaleAxis(axis, target, val - from));
 
@@ -168,16 +168,16 @@ namespace SpleenTween
         public static Tween Rot(Transform target, Vector3 to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, target.eulerAngles, to, duration, easing, val => target.eulerAngles = val);
         
-        public static Tween RotAxis(Transform target, Axis axis, float from, float to, float duration, Ease easing) =>
+        public static Tween RotAxis(Transform target, SpleenAxis axis, float from, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, from, to, duration, easing, val => SpleenExt.SetRotAxis(axis, target, val));
-        public static Tween RotAxis(Transform target, Axis axis, float to, float duration, Ease easing) =>
+        public static Tween RotAxis(Transform target, SpleenAxis axis, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, 
                 SpleenExt.GetAxis(axis, target.eulerAngles), to, duration, easing, val => SpleenExt.SetRotAxis(axis, target, val));
 
         public static Tween AddRot(Transform target, Vector3 increment, float duration, Ease easing) =>
             CreateRelativeTargetTween(target, target.gameObject, increment, duration, easing, () => target.eulerAngles, (val, from) => 
             target.eulerAngles += val - from);
-        public static Tween AddRotAxis(Transform target, Axis axis, float increment, float duration, Ease easing) =>
+        public static Tween AddRotAxis(Transform target, SpleenAxis axis, float increment, float duration, Ease easing) =>
             CreateRelativeTargetTween(target, target.gameObject, increment, duration, easing, 
                 () => SpleenExt.GetAxis(axis, target.eulerAngles), (val, from) => SpleenExt.AddRotAxis(axis, target, val - from));
         
