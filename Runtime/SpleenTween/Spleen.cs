@@ -130,6 +130,18 @@ namespace SpleenTween
         public static Tween RBPosAxis(Rigidbody target, Axis axis, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, 
                 SpleenExt.GetAxis(axis, target.position), to, duration, easing, val => SpleenExt.SetRBPosAxis(axis, target, val));
+        
+        
+        public static Tween RB2DPos(Rigidbody2D target, Vector2 from, Vector2 to, float duration, Ease easing) => 
+            CreateTargetTween(target, target.gameObject, from, to, duration, easing, target.MovePosition);
+        public static Tween RB2DPos(Rigidbody2D target, Vector2 to, float duration, Ease easing) =>
+            CreateTargetTween(target, target.gameObject, target.position, to, duration, easing, target.MovePosition);
+        
+        public static Tween RB2DPosAxis(Rigidbody2D target, Axis axis, float from, float to, float duration, Ease easing) =>
+            CreateTargetTween(target, target.gameObject, from, to, duration, easing, val => SpleenExt.SetRB2DPosAxis(axis, target, val));
+        public static Tween RB2DPosAxis(Rigidbody2D target, Axis axis, float to, float duration, Ease easing) =>
+            CreateTargetTween(target, target.gameObject, 
+                SpleenExt.GetAxis(axis, target.position), to, duration, easing, val => SpleenExt.SetRB2DPosAxis(axis, target, val));
 
         
         public static Tween Scale(Transform target, Vector3 from, Vector3 to, float duration, Ease easing) =>

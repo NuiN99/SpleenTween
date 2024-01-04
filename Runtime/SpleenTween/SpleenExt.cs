@@ -19,9 +19,9 @@ namespace SpleenTween.Extensions
                 case Axis.y: newVal.y = targetVal; break;
                 case Axis.z: newVal.z = targetVal; break;
             }
-            setAxis(newVal);
+            setAxis?.Invoke(newVal);
         }
-        static void AddAxis(Axis axis, float increment, Action<Vector3> setAxis)
+        static void AddAxis(Axis axis, float increment, Action<Vector3> addAxis)
         {
             Vector3 newVal = Vector3.zero;
             switch (axis)
@@ -30,7 +30,7 @@ namespace SpleenTween.Extensions
                 case Axis.y: newVal.y = increment; break;
                 case Axis.z: newVal.z = increment; break;
             }
-            setAxis(newVal);
+            addAxis?.Invoke(newVal);
         }
 
         public static float GetAxis(Axis axis, Vector3 inVal)
@@ -52,8 +52,9 @@ namespace SpleenTween.Extensions
             (val) => target.transform.localScale = val);
         public static void SetRotAxis(Axis axis, Transform target, float targetVal) => SetAxis(axis, target.eulerAngles, targetVal,
             (val) => target.transform.eulerAngles = val);
-        
+
         public static void SetRBPosAxis(Axis axis, Rigidbody target, float targetVal) => SetAxis(axis, target.position, targetVal, target.MovePosition);
+        public static void SetRB2DPosAxis(Axis axis, Rigidbody2D target, float targetVal) => SetAxis(axis, target.position, targetVal, pos => target.MovePosition(pos));
 
         public static void AddPosAxis(Axis axis, Transform target, float increment) => AddAxis(axis, increment,
             (val) => target.transform.position += val);
