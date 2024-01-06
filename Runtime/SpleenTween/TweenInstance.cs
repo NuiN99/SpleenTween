@@ -9,13 +9,14 @@ namespace SpleenTween
         T _currentValue;
         T _from;
         T _to;
-
+        
         Action<T> _onUpdate;
         Func<bool> _nullCheck;
         Func<bool> _stopCondition;
-
+        
         Action _onComplete;
         Action _onStart;
+        Action _onStop;
 
         bool _started;
         bool _invokeCompleteAfterStopped;
@@ -136,6 +137,10 @@ namespace SpleenTween
             _started = true;
             _onStart?.Invoke();
         }
+        void InvokeOnStop()
+        {
+            _onStop?.Invoke();
+        }
 
         void RestartLoop()
         {
@@ -157,7 +162,9 @@ namespace SpleenTween
         /// </summary>
         bool NullTarget()
         {
-            return _nullCheck != null && _nullCheck.Invoke();
+            bool isNull = _nullCheck != null && _nullCheck.Invoke();
+            if (isNull) InvokeOnStop();
+            return isNull;
         }
 
         bool StopConditionMet()
@@ -170,6 +177,9 @@ namespace SpleenTween
                     InvokeOnComplete();
                     break;
             }
+            
+            if(conditionMet) InvokeOnStop();
+            
             return conditionMet;
         }
 
@@ -232,6 +242,12 @@ namespace SpleenTween
         {
             _invokeCompleteAfterStopped = invokeComplete;
             _stopCondition += stopCondition;
+            return this;
+        }
+
+        Tween Tween.OnStop(Action onStop)
+        {
+            _onStop += onStop;
             return this;
         }
 

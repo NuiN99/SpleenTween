@@ -19,6 +19,7 @@ namespace SpleenTween
         Tween OnStart(Action onStart);
         Tween OnUpdate<TU>(Action<TU> onUpdate);
         Tween OnComplete(Action onComplete);
+        Tween OnStop(Action onStop);
         Tween SetLoop(Loop loopType, int cycles = -1);
         Tween SetDelay(float delay, bool startDelay = true);
         Tween Stop();
