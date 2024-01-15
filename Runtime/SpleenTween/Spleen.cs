@@ -163,24 +163,34 @@ namespace SpleenTween
                 () => SpleenExt.GetAxis(axis, target.localScale), (val, from) => SpleenExt.AddScaleAxis(axis, target, val - from));
 
         
-        public static Tween Rot(Transform target, Vector3 from, Vector3 to, float duration, Ease easing) =>
+        public static Tween Euler(Transform target, Vector3 from, Vector3 to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, from, to, duration, easing, val => target.eulerAngles = val);
-        public static Tween Rot(Transform target, Vector3 to, float duration, Ease easing) =>
+        public static Tween Euler(Transform target, Vector3 to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, target.eulerAngles, to, duration, easing, val => target.eulerAngles = val);
+        
+        public static Tween EulerAxis(Transform target, SpleenAxis axis, float from, float to, float duration, Ease easing) =>
+            CreateTargetTween(target, target.gameObject, from, to, duration, easing, val => SpleenExt.SetEulerAxis(axis, target, val));
+        public static Tween EulerAxis(Transform target, SpleenAxis axis, float to, float duration, Ease easing) =>
+            CreateTargetTween(target, target.gameObject, 
+                SpleenExt.GetAxis(axis, target.eulerAngles), to, duration, easing, val => SpleenExt.SetEulerAxis(axis, target, val));
+
+        public static Tween AddEuler(Transform target, Vector3 increment, float duration, Ease easing) =>
+            CreateRelativeTargetTween(target, target.gameObject, increment, duration, easing, () => target.eulerAngles, (val, from) => 
+            target.eulerAngles += val - from);
+        public static Tween AddRotAxis(Transform target, SpleenAxis axis, float increment, float duration, Ease easing) =>
+            CreateRelativeTargetTween(target, target.gameObject, increment, duration, easing, 
+                () => SpleenExt.GetAxis(axis, target.eulerAngles), (val, from) => SpleenExt.AddEulerAxis(axis, target, val - from));
+        
+        public static Tween Rot(Transform target, Quaternion from, Quaternion to, float duration, Ease easing) =>
+            CreateTargetTween(target, target.gameObject, from, to, duration, easing, val => target.rotation = val);
+        public static Tween Rot(Transform target, Quaternion to, float duration, Ease easing) =>
+            CreateTargetTween(target, target.gameObject, target.rotation, to, duration, easing, val => target.rotation = val);
         
         public static Tween RotAxis(Transform target, SpleenAxis axis, float from, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, from, to, duration, easing, val => SpleenExt.SetRotAxis(axis, target, val));
         public static Tween RotAxis(Transform target, SpleenAxis axis, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, 
-                SpleenExt.GetAxis(axis, target.eulerAngles), to, duration, easing, val => SpleenExt.SetRotAxis(axis, target, val));
-
-        public static Tween AddRot(Transform target, Vector3 increment, float duration, Ease easing) =>
-            CreateRelativeTargetTween(target, target.gameObject, increment, duration, easing, () => target.eulerAngles, (val, from) => 
-            target.eulerAngles += val - from);
-        public static Tween AddRotAxis(Transform target, SpleenAxis axis, float increment, float duration, Ease easing) =>
-            CreateRelativeTargetTween(target, target.gameObject, increment, duration, easing, 
-                () => SpleenExt.GetAxis(axis, target.eulerAngles), (val, from) => SpleenExt.AddRotAxis(axis, target, val - from));
-        
+                SpleenExt.GetRotAxis(axis, target.rotation), to, duration, easing, val => SpleenExt.SetRotAxis(axis, target, val));
 
         public static Tween Vol(AudioSource target, float from, float to, float duration, Ease easing) =>
             CreateTargetTween(target, target.gameObject, from, to, duration, easing, val => target.volume = val);

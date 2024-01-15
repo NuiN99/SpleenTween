@@ -43,6 +43,39 @@ namespace SpleenTween.Extensions
                 _ => throw new MissingMemberException("Axis somehow does not exist")
             };
         }
+        
+        static void SetRotationAxis(SpleenAxis axis, Quaternion inVal, float targetVal, Action<Quaternion> setAxis)
+        {
+            Quaternion newVal = inVal;
+            switch (axis)
+            {
+                case SpleenAxis.X: newVal.x = targetVal; break;
+                case SpleenAxis.Y: newVal.y = targetVal; break;
+                case SpleenAxis.Z: newVal.z = targetVal; break;
+            }
+            setAxis?.Invoke(newVal);
+        }
+        static void AddRotationAxis(SpleenAxis axis, float increment, Action<Quaternion> addAxis)
+        {
+            Quaternion newVal = Quaternion.identity;
+            switch (axis)
+            {
+                case SpleenAxis.X: newVal.x = increment; break;
+                case SpleenAxis.Y: newVal.y = increment; break;
+                case SpleenAxis.Z: newVal.z = increment; break;
+            }
+            addAxis?.Invoke(newVal);
+        }
+        public static float GetRotAxis(SpleenAxis axis, Quaternion inVal)
+        {
+            return axis switch
+            {
+                SpleenAxis.X => inVal.x,
+                SpleenAxis.Y => inVal.y,
+                SpleenAxis.Z => inVal.z,
+                _ => throw new MissingMemberException("Axis somehow does not exist")
+            };
+        }
 
         public static void SetPosAxis(SpleenAxis axis, Transform target, float targetVal) => SetAxis(axis, target.position, targetVal,
             (val) => target.transform.position = val);
@@ -50,8 +83,10 @@ namespace SpleenTween.Extensions
             (val) => target.transform.localPosition = val);
         public static void SetScaleAxis(SpleenAxis axis, Transform target, float targetVal) => SetAxis(axis, target.localScale, targetVal,
             (val) => target.transform.localScale = val);
-        public static void SetRotAxis(SpleenAxis axis, Transform target, float targetVal) => SetAxis(axis, target.eulerAngles, targetVal,
+        public static void SetEulerAxis(SpleenAxis axis, Transform target, float targetVal) => SetAxis(axis, target.eulerAngles, targetVal,
             (val) => target.transform.eulerAngles = val);
+        public static void SetRotAxis(SpleenAxis axis, Transform target, float targetVal) => SetRotationAxis(axis, target.rotation, targetVal,
+            (val) => target.rotation = val);
 
         public static void SetRBPosAxis(SpleenAxis axis, Rigidbody target, float targetVal) => SetAxis(axis, target.position, targetVal, target.MovePosition);
         public static void SetRB2DPosAxis(SpleenAxis axis, Rigidbody2D target, float targetVal) => SetAxis(axis, target.position, targetVal, pos => target.MovePosition(pos));
@@ -62,9 +97,8 @@ namespace SpleenTween.Extensions
             (val) => target.transform.localPosition += val);
         public static void AddScaleAxis(SpleenAxis axis, Transform target, float increment) => AddAxis(axis, increment,
             (val) => target.transform.localScale += val);
-        public static void AddRotAxis(SpleenAxis axis, Transform target, float increment) => AddAxis(axis, increment,
+        public static void AddEulerAxis(SpleenAxis axis, Transform target, float increment) => AddAxis(axis, increment,
             (val) => target.transform.eulerAngles += val);
-
 
         /// <summary>
         /// Checks the type of passed in generic and if possible performs A + B
@@ -140,6 +174,11 @@ namespace SpleenTween.Extensions
             if (typeof(T) == typeof(Vector2))
             {
                 return (T)(object)Vector2.LerpUnclamped((Vector2)(object)from, (Vector2)(object)to, lerpProgress);
+            }
+            
+            if (typeof(T) == typeof(Quaternion))
+            {
+                return (T)(object)Quaternion.SlerpUnclamped((Quaternion)(object)from, (Quaternion)(object)to, lerpProgress);
             }
 
             if (typeof(T) == typeof(Color))
