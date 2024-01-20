@@ -6,15 +6,10 @@ namespace SpleenTween
     public interface Tween
     {
         /// <summary>
-        /// Gets called every frame to calculate and update the values of the tween
+        ///  Gets called every frame to calculate and update the values of the tween
         /// </summary>
-        void Run();
-
-        /// <summary>
-        /// Returns true if the tween is finished or its target is null
-        /// </summary>
-        bool Complete();
-
+        /// <returns>True if valid, False if stopped or complete</returns>
+        bool Run();
 
         Tween OnStart(Action onStart);
         Tween OnUpdate<TU>(Action<TU> onUpdate);
@@ -31,7 +26,6 @@ namespace SpleenTween
         Tween Pause();
         Tween Play();
         Tween Toggle();
-        
 
         Tween SetPlaybackSpeed(float targetSpeed);
 
@@ -44,8 +38,7 @@ namespace SpleenTween
         /// Tweens the playback speed from the specified value
         /// </summary>
         Tween SetPlaybackSpeed(float startSpeed, float targetSpeed, float smoothTime);
-
-
+        
         GameObject Identifier { get; }
         object CurrentValue { get; }
         object From { get; set; }

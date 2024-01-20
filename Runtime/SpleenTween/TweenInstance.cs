@@ -86,20 +86,16 @@ namespace SpleenTween
             _nullCheck = nullCheck;
         }
 
-        void Tween.Run()
+        bool Tween.Run()
         {
-            if (NullTarget()) return; // stop if the target is null
-            if (StopConditionMet() || Paused) return;
+            if (Paused || NullTarget() || StopConditionMet()) return false;
 
             CurrentTime += Time.deltaTime * PlaybackSpeed;
 
             switch (CurrentTime)
             {
-                case < 0: return; // wait for delay
-
-                case >= 0 when !_started: 
-                    InvokeOnStart();  // tween has started
-                    break;
+                case < 0: return true; // wait for delay
+                case >= 0 when !_started: InvokeOnStart(); break;
             }
 
             if (!Active)
@@ -108,15 +104,11 @@ namespace SpleenTween
                 RestartLoop();
                 UpdateValue();
                 InvokeOnComplete();
-                return;
+                return false;
             }
 
             UpdateValue();
-        }
-
-        bool Tween.Complete()
-        {
-            return !Active || NullTarget() || StopConditionMet();
+            return true;
         }
 
         void UpdateValue()
