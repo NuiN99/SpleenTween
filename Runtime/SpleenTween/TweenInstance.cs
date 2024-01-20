@@ -1,7 +1,7 @@
 namespace SpleenTween
 {
     using System;
-    using SpleenTween.Extensions;
+    using Extensions;
     using UnityEngine;
     
     public class TweenInstance<T> : Tween
@@ -23,10 +23,9 @@ namespace SpleenTween
         int _cycles;
         bool _completed;
 
-
         public GameObject Identifier { get; private set; }
 
-        public object CurrentValue { get => _currentValue; set { } }
+        public object CurrentValue => _currentValue;
         public object From { get => _from; set { } }
         public object To { get => _to; set { } }
 
@@ -37,7 +36,7 @@ namespace SpleenTween
 
         public float Delay { get; private set; }
 
-        public float LerpProgress { get => Mathf.Clamp01(CurrentTime / Duration); private set { } }
+        public float LerpProgress => Mathf.Clamp01(CurrentTime / Duration);
 
         public float EasedLerpProgress
         {
@@ -63,7 +62,7 @@ namespace SpleenTween
 
         public bool Active => CurrentTime < Duration;
 
-        public Ease EaseType { get; }
+        public Ease EaseType { get; private set; }
         public Loop LoopType { get; private set; }
 
         /// <summary>
@@ -74,15 +73,14 @@ namespace SpleenTween
 
         // will always be forward(1) if loop type is not rewind or yoyo
         public int Direction => (!Looping.IsLoopWeird(LoopType) || (CycleCount % 2) == 0) ? 1 : 0; 
-
         public bool Paused { get; private set; }
+        public bool DontDestroyOnLoad { get; private set; }
 
-        public TweenInstance(T from, T to, float duration, Ease easeType, Action<T> onUpdate, GameObject identifier = null, Func<bool> nullCheck = null)
+        public TweenInstance(T from, T to, float duration, Action<T> onUpdate, GameObject identifier = null, Func<bool> nullCheck = null)
         {
             _from = from;
             _to = to;
             Duration = duration;
-            EaseType = easeType;
             _onUpdate = onUpdate;
             Identifier = identifier;
             _nullCheck = nullCheck;
@@ -195,15 +193,21 @@ namespace SpleenTween
             _onStart += onStart;
             return this;
         }
-        public Tween OnUpdate<U>(Action<U> onUpdate)
+        public Tween OnUpdate<TU>(Action<TU> onUpdate)
         {
-            if (typeof(T) != typeof(U))
+            if (typeof(T) != typeof(TU))
             {
                 Debug.LogError("Incompatible Types in OnUpdate callback: OnUpdate callback will not run");
                 return this;
             }
 
-            _onUpdate += (value) => onUpdate((U)(object)value);
+            _onUpdate += (value) => onUpdate((TU)(object)value);
+            return this;
+        }
+
+        Tween Tween.SetEase(Ease ease)
+        {
+            EaseType = ease;
             return this;
         }
 
@@ -223,6 +227,12 @@ namespace SpleenTween
         {
             Delay = delay;
             if (startDelay) DelayCycle(delay);
+            return this;
+        }
+
+        Tween Tween.SetDestroyOnLoad(bool destroy)
+        {
+            DontDestroyOnLoad = destroy;
             return this;
         }
 
@@ -272,17 +282,17 @@ namespace SpleenTween
             PlaybackSpeed = targetSpeed;
             return this;
         }
-        Tween Tween.SetPlaybackSpeed(float targetSpeed, float smoothTime, Ease easing)
+        Tween Tween.SetPlaybackSpeed(float targetSpeed, float smoothTime)
         {
-            Spleen.Value(PlaybackSpeed, targetSpeed, smoothTime, easing, (val) => 
+            Spleen.Value(PlaybackSpeed, targetSpeed, smoothTime, (val) => 
             {
                 if(!Paused) PlaybackSpeed = val;
             });
             return this;
         }
-        Tween Tween.SetPlaybackSpeed(float startSpeed, float targetSpeed, float smoothTime, Ease easing)
+        Tween Tween.SetPlaybackSpeed(float startSpeed, float targetSpeed, float smoothTime)
         {
-            Spleen.Value(startSpeed, targetSpeed, smoothTime, easing, (val) =>
+            Spleen.Value(startSpeed, targetSpeed, smoothTime, (val) =>
             {
                 if (!Paused) PlaybackSpeed = val;
             });

@@ -20,8 +20,10 @@ namespace SpleenTween
         Tween OnUpdate<TU>(Action<TU> onUpdate);
         Tween OnComplete(Action onComplete);
         Tween OnStop(Action onStop);
+        Tween SetEase(Ease ease);
         Tween SetLoop(Loop loopType, int cycles = -1);
         Tween SetDelay(float delay, bool startDelay = true);
+        Tween SetDestroyOnLoad(bool destroy);
         Tween Stop();
         Tween StopIfNull(GameObject target);
         Tween StopIf(Func<bool> stopCondition, bool invokeComplete = false);
@@ -29,18 +31,19 @@ namespace SpleenTween
         Tween Pause();
         Tween Play();
         Tween Toggle();
+        
 
         Tween SetPlaybackSpeed(float targetSpeed);
 
         /// <summary>
         /// Tweens the playback speed from the current playback speed
         /// </summary>
-        Tween SetPlaybackSpeed(float targetSpeed, float smoothTime, Ease ease);
+        Tween SetPlaybackSpeed(float targetSpeed, float smoothTime);
 
         /// <summary>
         /// Tweens the playback speed from the specified value
         /// </summary>
-        Tween SetPlaybackSpeed(float startSpeed, float targetSpeed, float smoothTime, Ease ease);
+        Tween SetPlaybackSpeed(float startSpeed, float targetSpeed, float smoothTime);
 
 
         GameObject Identifier { get; }
@@ -60,5 +63,6 @@ namespace SpleenTween
         int CycleCount { get; }
         int Direction { get; }
         bool Paused { get; }
+        bool DontDestroyOnLoad { get; }
     }
 }

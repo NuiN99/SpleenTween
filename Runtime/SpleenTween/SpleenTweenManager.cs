@@ -15,7 +15,7 @@ namespace SpleenTween
 
         public static float fixedDeltaTime;
 
-        public static SpleenTweenManager Instance;
+        public static SpleenTweenManager instance;
 
         /// <summary>
         /// Spawns a new instance when the game loads for the first time
@@ -25,10 +25,10 @@ namespace SpleenTween
 
         void Awake()
         {
-            if (Instance != null && Instance != this)
+            if (instance != null && instance != this)
                 Destroy(gameObject);
             else
-                Instance = this;
+                instance = this;
 
             DontDestroyOnLoad(this.gameObject);
 
@@ -54,15 +54,15 @@ namespace SpleenTween
             }
         }
 
-        public void AddTween(Tween tween) => _activeTweens.Add(tween);
-        public void RemoveTween(Tween tween) 
+        public void StartTween(Tween tween) => _activeTweens.Add(tween);
+        public void StopTween(Tween tween) 
         {
             _activeTweens.Remove(tween);
         }
 
-        public void RemoveAllTweens() => _activeTweens.Clear();
+        public void StopAllTweens() => _activeTweens.Clear();
 
-        public void RemoveAllTweensWithIdentifier(GameObject identifier)
+        public void StopAllTweensWithIdentifier(GameObject identifier)
         {
             if (identifier == null) return;
 
@@ -77,7 +77,13 @@ namespace SpleenTween
             }
         }
 
-        void StopAllOnSceneLoad(Scene a, Scene b) => RemoveAllTweens();
+        void StopAllOnSceneLoad(Scene a, Scene b)
+        {
+            for (int i = _activeTweens.Count - 1; i >= 0; i--)
+            {
+                if(!_activeTweens[i].DontDestroyOnLoad) _activeTweens.RemoveAt(i);
+            }
+        }
 
         void OnEnable() => SceneManager.activeSceneChanged += StopAllOnSceneLoad;
         void OnDisable() => SceneManager.activeSceneChanged -= StopAllOnSceneLoad;
