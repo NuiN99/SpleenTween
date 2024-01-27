@@ -259,6 +259,8 @@ namespace SpleenTween
         {
             Tween tween = CreateTween(from, to, duration, val =>
             {
+                if(float.IsNaN(val)) return;
+                
                 Time.timeScale = val;
                 Time.fixedDeltaTime = SpleenTweenManager.fixedDeltaTime * val;
             });
@@ -270,6 +272,8 @@ namespace SpleenTween
         {
             Tween tween = CreateTween(Time.timeScale, to, duration, val =>
             {
+                if(float.IsNaN(val)) return;
+
                 Time.timeScale = val;
                 Time.fixedDeltaTime = SpleenTweenManager.fixedDeltaTime * val;
             });
