@@ -75,6 +75,7 @@ namespace SpleenTween
         public int Direction => (!Looping.IsLoopWeird(LoopType) || (CycleCount % 2) == 0) ? 1 : 0; 
         public bool Paused { get; private set; }
         public bool DontDestroyOnLoad { get; private set; }
+        public bool  TimeScaleIndependant { get; private set; }
 
         public TweenInstance(T from, T to, float duration, Action<T> onUpdate, GameObject identifier = null, Func<bool> nullCheck = null)
         {
@@ -90,6 +91,8 @@ namespace SpleenTween
         {
             if (Paused || NullTarget() || StopConditionMet()) return false;
 
+            if (TimeScaleIndependant) SetPlaybackSpeed(1 / Time.timeScale);
+            
             CurrentTime += Time.deltaTime * PlaybackSpeed;
 
             switch (CurrentTime)
@@ -269,11 +272,12 @@ namespace SpleenTween
             return this;
         }
 
-        Tween Tween.SetPlaybackSpeed(float targetSpeed)
+        public Tween SetPlaybackSpeed(float targetSpeed)
         {
             PlaybackSpeed = targetSpeed;
             return this;
         }
+        
         Tween Tween.SetPlaybackSpeed(float targetSpeed, float smoothTime)
         {
             Spleen.Value(PlaybackSpeed, targetSpeed, smoothTime, (val) => 
@@ -288,6 +292,12 @@ namespace SpleenTween
             {
                 if (!Paused) PlaybackSpeed = val;
             });
+            return this;
+        }
+        
+        Tween Tween.SetTimeScaleIndependant(bool option)
+        {
+            TimeScaleIndependant = option;
             return this;
         }
 

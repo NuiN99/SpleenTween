@@ -28,6 +28,7 @@ namespace SpleenTween
         Tween Toggle();
 
         Tween SetPlaybackSpeed(float targetSpeed);
+        Tween SetTimeScaleIndependant(bool option);
 
         /// <summary>
         /// Tweens the playback speed from the current playback speed
@@ -57,5 +58,6 @@ namespace SpleenTween
         int Direction { get; }
         bool Paused { get; }
         bool DontDestroyOnLoad { get; }
+        bool TimeScaleIndependant { get; }
     }
 }
