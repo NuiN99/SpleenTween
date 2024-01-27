@@ -91,7 +91,7 @@ namespace SpleenTween
         {
             if (Paused || NullTarget() || StopConditionMet()) return false;
 
-            if (TimeScaleIndependant) SetPlaybackSpeed(1 / Time.timeScale);
+            if (TimeScaleIndependant) SetPlaybackSpeed(Mathf.Min(float.MaxValue, (1 / Time.timeScale)));
             
             CurrentTime += Time.deltaTime * PlaybackSpeed;
 
