@@ -107,7 +107,7 @@ namespace SpleenTween
                 RestartLoop();
                 UpdateValue();
                 InvokeOnComplete();
-                return false;
+                return !(LoopType == Loop.None || Cycles is not (-1 or > 0));
             }
 
             UpdateValue();
