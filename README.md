@@ -1,3 +1,5 @@
+Unity Package URL: https://github.com/NuiN99/SpleenTween.git
+
 # SpleenTween - Tweening Library for Unity
 
 # How To Use:
