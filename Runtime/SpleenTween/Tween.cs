@@ -16,6 +16,7 @@ namespace SpleenTween
         Tween OnComplete(Action onComplete);
         Tween OnStop(Action onStop);
         Tween SetEase(Ease ease);
+        Tween SetEase(AnimationCurve animationCurve);
         Tween SetLoop(Loop loopType, int cycles = -1);
         Tween SetDelay(float delay, bool startDelay = true);
         Tween SetDestroyOnLoad(bool destroy);

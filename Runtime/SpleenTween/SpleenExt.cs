@@ -1,11 +1,11 @@
 using UnityEngine.UIElements.Experimental;
 
-namespace SpleenTween.Extensions
+namespace SpleenTween
 {
     using System;
     using UnityEngine;
     
-    public enum SpleenAxis { X, Y, Z };
+    public enum Axis { x, y, z };
 
     /// <summary>
     /// Various helper functions for improved code readability
@@ -62,94 +62,94 @@ namespace SpleenTween.Extensions
             };
         }
         
-        static void SetAxis(SpleenAxis axis, Vector3 inVal, float targetVal, Action<Vector3> setAxis)
+        static void SetAxis(Axis axis, Vector3 inVal, float targetVal, Action<Vector3> setAxis)
         {
             Vector3 newVal = inVal;
             switch (axis)
             {
-                case SpleenAxis.X: newVal.x = targetVal; break;
-                case SpleenAxis.Y: newVal.y = targetVal; break;
-                case SpleenAxis.Z: newVal.z = targetVal; break;
+                case Axis.x: newVal.x = targetVal; break;
+                case Axis.y: newVal.y = targetVal; break;
+                case Axis.z: newVal.z = targetVal; break;
             }
             setAxis?.Invoke(newVal);
         }
-        static void AddAxis(SpleenAxis axis, float increment, Action<Vector3> addAxis)
+        static void AddAxis(Axis axis, float increment, Action<Vector3> addAxis)
         {
             Vector3 newVal = Vector3.zero;
             switch (axis)
             {
-                case SpleenAxis.X: newVal.x = increment; break;
-                case SpleenAxis.Y: newVal.y = increment; break;
-                case SpleenAxis.Z: newVal.z = increment; break;
+                case Axis.x: newVal.x = increment; break;
+                case Axis.y: newVal.y = increment; break;
+                case Axis.z: newVal.z = increment; break;
             }
             addAxis?.Invoke(newVal);
         }
 
-        public static float GetAxis(SpleenAxis axis, Vector3 inVal)
+        public static float GetAxis(Axis axis, Vector3 inVal)
         {
             return axis switch
             {
-                SpleenAxis.X => inVal.x,
-                SpleenAxis.Y => inVal.y,
-                SpleenAxis.Z => inVal.z,
+                Axis.x => inVal.x,
+                Axis.y => inVal.y,
+                Axis.z => inVal.z,
                 _ => throw new MissingMemberException("Axis somehow does not exist")
             };
         }
         
-        static void SetRotationAxis(SpleenAxis axis, Quaternion inVal, float targetVal, Action<Quaternion> setAxis)
+        static void SetRotationAxis(Axis axis, Quaternion inVal, float targetVal, Action<Quaternion> setAxis)
         {
             Quaternion newVal = inVal;
             switch (axis)
             {
-                case SpleenAxis.X: newVal.x = targetVal; break;
-                case SpleenAxis.Y: newVal.y = targetVal; break;
-                case SpleenAxis.Z: newVal.z = targetVal; break;
+                case Axis.x: newVal.x = targetVal; break;
+                case Axis.y: newVal.y = targetVal; break;
+                case Axis.z: newVal.z = targetVal; break;
             }
             setAxis?.Invoke(newVal);
         }
-        static void AddRotationAxis(SpleenAxis axis, float increment, Action<Quaternion> addAxis)
+        static void AddRotationAxis(Axis axis, float increment, Action<Quaternion> addAxis)
         {
             Quaternion newVal = Quaternion.identity;
             switch (axis)
             {
-                case SpleenAxis.X: newVal.x = increment; break;
-                case SpleenAxis.Y: newVal.y = increment; break;
-                case SpleenAxis.Z: newVal.z = increment; break;
+                case Axis.x: newVal.x = increment; break;
+                case Axis.y: newVal.y = increment; break;
+                case Axis.z: newVal.z = increment; break;
             }
             addAxis?.Invoke(newVal);
         }
-        public static float GetRotAxis(SpleenAxis axis, Quaternion inVal)
+        public static float GetRotAxis(Axis axis, Quaternion inVal)
         {
             return axis switch
             {
-                SpleenAxis.X => inVal.x,
-                SpleenAxis.Y => inVal.y,
-                SpleenAxis.Z => inVal.z,
+                Axis.x => inVal.x,
+                Axis.y => inVal.y,
+                Axis.z => inVal.z,
                 _ => throw new MissingMemberException("Axis somehow does not exist")
             };
         }
 
-        public static void SetPosAxis(SpleenAxis axis, Transform target, float targetVal) => SetAxis(axis, target.position, targetVal,
+        public static void SetPosAxis(Axis axis, Transform target, float targetVal) => SetAxis(axis, target.position, targetVal,
             (val) => target.transform.position = val);
-        public static void SetLocalPosAxis(SpleenAxis axis, Transform target, float targetVal) => SetAxis(axis, target.localPosition, targetVal,
+        public static void SetLocalPosAxis(Axis axis, Transform target, float targetVal) => SetAxis(axis, target.localPosition, targetVal,
             (val) => target.transform.localPosition = val);
-        public static void SetScaleAxis(SpleenAxis axis, Transform target, float targetVal) => SetAxis(axis, target.localScale, targetVal,
+        public static void SetScaleAxis(Axis axis, Transform target, float targetVal) => SetAxis(axis, target.localScale, targetVal,
             (val) => target.transform.localScale = val);
-        public static void SetEulerAxis(SpleenAxis axis, Transform target, float targetVal) => SetAxis(axis, target.eulerAngles, targetVal,
+        public static void SetEulerAxis(Axis axis, Transform target, float targetVal) => SetAxis(axis, target.eulerAngles, targetVal,
             (val) => target.transform.eulerAngles = val);
-        public static void SetRotAxis(SpleenAxis axis, Transform target, float targetVal) => SetRotationAxis(axis, target.rotation, targetVal,
+        public static void SetRotAxis(Axis axis, Transform target, float targetVal) => SetRotationAxis(axis, target.rotation, targetVal,
             (val) => target.rotation = val);
 
-        public static void SetRBPosAxis(SpleenAxis axis, Rigidbody target, float targetVal) => SetAxis(axis, target.position, targetVal, target.MovePosition);
-        public static void SetRB2DPosAxis(SpleenAxis axis, Rigidbody2D target, float targetVal) => SetAxis(axis, target.position, targetVal, pos => target.MovePosition(pos));
+        public static void SetRBPosAxis(Axis axis, Rigidbody target, float targetVal) => SetAxis(axis, target.position, targetVal, target.MovePosition);
+        public static void SetRB2DPosAxis(Axis axis, Rigidbody2D target, float targetVal) => SetAxis(axis, target.position, targetVal, pos => target.MovePosition(pos));
 
-        public static void AddPosAxis(SpleenAxis axis, Transform target, float increment) => AddAxis(axis, increment,
+        public static void AddPosAxis(Axis axis, Transform target, float increment) => AddAxis(axis, increment,
             (val) => target.transform.position += val);
-        public static void AddLocalPosAxis(SpleenAxis axis, Transform target, float increment) => AddAxis(axis, increment,
+        public static void AddLocalPosAxis(Axis axis, Transform target, float increment) => AddAxis(axis, increment,
             (val) => target.transform.localPosition += val);
-        public static void AddScaleAxis(SpleenAxis axis, Transform target, float increment) => AddAxis(axis, increment,
+        public static void AddScaleAxis(Axis axis, Transform target, float increment) => AddAxis(axis, increment,
             (val) => target.transform.localScale += val);
-        public static void AddEulerAxis(SpleenAxis axis, Transform target, float increment) => AddAxis(axis, increment,
+        public static void AddEulerAxis(Axis axis, Transform target, float increment) => AddAxis(axis, increment,
             (val) => target.transform.eulerAngles += val);
 
         /// <summary>

@@ -1,7 +1,6 @@
 namespace SpleenTween
 {
     using System;
-    using Extensions;
     using UnityEngine;
     
     public class TweenInstance<T> : Tween
@@ -18,10 +17,13 @@ namespace SpleenTween
         Action _onStart;
         Action _onStop;
 
+        AnimationCurve _customEase;
+        
         bool _started;
         bool _invokeCompleteAfterStopped;
         int _cycles;
         bool _completed;
+        bool _useCustomEase;
 
         public GameObject Identifier { get; private set; }
 
@@ -42,14 +44,14 @@ namespace SpleenTween
         {
             get
             {
-                float easeVal = SpleenExt.GetEase(LerpProgress, EaseType);
+                float easeVal = EaseType != Ease.Custom ? SpleenExt.GetEase(LerpProgress, EaseType) : _customEase.Evaluate(LerpProgress);
 
                 switch (LoopType)
                 {
                     case Loop.Rewind:
                         float backwardsLerp = 1 - LerpProgress;
                         float lerpBasedOnDirection = Direction == 0 ? backwardsLerp : LerpProgress;
-                        return SpleenExt.GetEase(lerpBasedOnDirection, EaseType);
+                        return EaseType != Ease.Custom ? SpleenExt.GetEase(lerpBasedOnDirection, EaseType) : _customEase.Evaluate(LerpProgress);
                     case Loop.Yoyo:
                         float backwardsEase = 1 - easeVal;
                         return Direction == 0 ? backwardsEase : easeVal;
@@ -203,6 +205,13 @@ namespace SpleenTween
         Tween Tween.SetEase(Ease ease)
         {
             EaseType = ease;
+            return this;
+        }
+
+        Tween Tween.SetEase(AnimationCurve animationCurve)
+        {
+            EaseType = Ease.Custom;
+            _customEase = animationCurve;
             return this;
         }
 

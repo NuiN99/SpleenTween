@@ -3,6 +3,7 @@
     public enum Ease
     {
         Linear,
+        Custom,
 
         InSine, OutSine, InOutSine,
         InQuad, OutQuad, InOutQuad,
